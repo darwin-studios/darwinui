@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, watch } from 'node:fs';
+import { readFileSync, writeFileSync, watch, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 const root = fileURLToPath(new URL('../', import.meta.url));
@@ -11,7 +11,11 @@ const files = {
 };
 function generate() {
   const sources = Object.fromEntries(Object.entries(files).map(([id, file]) => [id, { file, code: readFileSync(path.join(root, file), 'utf8') }]));
-  writeFileSync(path.join(root, 'packages/catalog/src/source-snapshots.ts'), '// Generated from canonical sources by scripts/catalog-sources.mjs.\nexport const sourceSnapshots: Record<string, { file: string; code: string }> = ' + JSON.stringify(sources, null, 2) + ';\n');
+  const output = JSON.stringify(sources);
+  for (const directory of ['src', 'dist']) {
+    mkdirSync(path.join(root, 'packages/catalog', directory), { recursive: true });
+    writeFileSync(path.join(root, 'packages/catalog', directory, 'source-snapshots.json'), output);
+  }
 }
 generate();
 if (process.argv.includes('--watch')) for (const file of Object.values(files)) watch(path.join(root, file), generate);

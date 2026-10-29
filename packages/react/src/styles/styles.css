@@ -433,3 +433,6 @@
 .dui-code-panel[data-theme=dark] .dui-code-fade { background:linear-gradient(transparent,#09090b); }
 .dui[data-theme=dark] .dui-syntax-string, .dui-code-panel[data-theme=dark] .dui-syntax-string { color:#6ee7b7; }
 .dui[data-theme=dark] .dui-syntax-keyword, .dui-code-panel[data-theme=dark] .dui-syntax-keyword { color:#f9a8d4; }
+.dui[data-theme=dark] .dui-preview-tabs { background:#18181b; border-color:#3f3f46; }
+.dui[data-theme=dark] .dui-preview-tabs button { color:#a1a1aa; }
+.dui[data-theme=dark] .dui-preview-tabs button[aria-pressed=true] { background:#27272a; color:#fafafa; border-color:#52525b; }

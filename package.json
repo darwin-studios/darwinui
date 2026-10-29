@@ -7,7 +7,7 @@
     "build": "node scripts/catalog-sources.mjs && pnpm -r --if-present build",
     "check-types": "pnpm -r --if-present check-types",
     "test": "vitest run",
-    "dev": "pnpm --filter @darwinui/playground dev",
+    "dev": "node scripts/dev.mjs",
     "test:consumers": "node scripts/test-consumers.mjs",
     "test:e2e": "playwright test",
     "audit:public": "node scripts/audit-public.mjs",

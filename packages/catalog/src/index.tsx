@@ -20,7 +20,9 @@ import {
 
 import { DesignExample, type SourceLoader } from './code-preview.js';
 const defaultSourceLoader: SourceLoader = async id => {
-  const { sourceSnapshots } = await import('./source-snapshots.js');
+  const response = await fetch(new URL('./source-snapshots.json', import.meta.url));
+  if (!response.ok) throw new Error('Source unavailable');
+  const sourceSnapshots = await response.json();
   const source = sourceSnapshots[id];
   if (!source) throw new Error('Unknown example');
   return source;
