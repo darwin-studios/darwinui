@@ -1,7 +1,7 @@
 import { spawn } from 'node:child_process';
 const children = [
   spawn(process.execPath, ['scripts/catalog-sources.mjs', '--watch'], { stdio: 'inherit' }),
-  spawn('pnpm', ['--filter', '@darwinui/playground', 'dev'], { stdio: 'inherit' }),
+  spawn('pnpm', ['--filter', '@darwinui/playground', 'dev', ...process.argv.slice(2)], { stdio: 'inherit' }),
 ];
 let stopping = false;
 function stop(code = 0) {
