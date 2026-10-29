@@ -10,6 +10,9 @@ it('only accepts registered, bounded thread compositions', () => {
   expect(validateThreadSource(composeDemoThread({ name: 'Joanne', location: 'Arkansas' }, false))).toBe(true);
   expect(validateThreadSource('root = ExecuteJavaScript("bad")')).toBe(false);
   expect(validateThreadSource('x'.repeat(32001))).toBe(false);
+  expect(validateThreadSource('root = Thread([' + Array(13).fill('Progress()').join(',') + '])')).toBe(false);
+  expect(validateThreadSource('root = Thread([Message("a", ' + JSON.stringify('x'.repeat(4001)) + ')])')).toBe(false);
+  expect(validateThreadSource('root = Thread([Message("a",')).toBe(false);
 });
 it('changes composition at runtime from input to recorded result and next operation', async () => {
   render(<GenerativeThreadDemo userId='joanne' />);

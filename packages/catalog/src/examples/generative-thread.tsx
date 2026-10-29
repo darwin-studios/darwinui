@@ -76,11 +76,40 @@ const Thread = defineComponent({
   component: ({ props, renderNode }) => <div className='dui-generated-thread'>{renderNode(props.sections)}</div>,
 });
 export const threadLibrary = createLibrary({ root: 'Thread', components: [Thread, Message, Input, Progress, Output] });
+// Parser schemas describe a catalog; validate the resolved tree before rendering it.
+const elementMetadata = { type: z.literal('element'), partial: z.literal(false), hasDynamicProps: z.literal(false) };
+const resolvedSection = z.discriminatedUnion('typeName', [
+  z.object({
+    ...elementMetadata,
+    typeName: z.literal('Message'),
+    props: z.object({ author: z.string().max(80), text: z.string().max(4000) }).strict(),
+  }),
+  z.object({
+    ...elementMetadata,
+    typeName: z.literal('OperationInput'),
+    props: z.object({ operationId: z.string().max(200) }).strict(),
+  }),
+  z.object({ ...elementMetadata, typeName: z.literal('Progress'), props: z.object({}).strict() }),
+  z.object({ ...elementMetadata, typeName: z.literal('Output'), props: z.object({}).strict() }),
+]);
+const resolvedThread = z.object({
+  ...elementMetadata,
+  typeName: z.literal('Thread'),
+  props: z.object({ sections: z.array(resolvedSection).max(12) }).strict(),
+});
 export function validateThreadSource(source: string) {
   if (source.length > 32000) return false;
   try {
     const parsed = createParser(threadLibrary.toJSONSchema()).parse(source);
-    return !parsed.meta.errors.length && !parsed.meta.unresolved.length;
+    return (
+      !parsed.meta.incomplete &&
+      !parsed.meta.errors.length &&
+      !parsed.meta.unresolved.length &&
+      !Object.keys(parsed.stateDeclarations).length &&
+      !parsed.queryStatements.length &&
+      !parsed.mutationStatements.length &&
+      resolvedThread.safeParse(parsed.root).success
+    );
   } catch {
     return false;
   }
