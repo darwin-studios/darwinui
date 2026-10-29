@@ -118,7 +118,7 @@ export function DarwinUICatalog() {
           </label>
           <label>
             View{' '}
-            <select value={mode} onChange={(e) => setMode(e.target.value)}>
+            <select aria-label="View" value={mode} onChange={(e) => setMode(e.target.value)}>
               <option value='human'>Human</option>
               <option value='agent'>Agent</option>
             </select>
