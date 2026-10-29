@@ -1,0 +1,23 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@3.1.1/schema.json",
+  "changelog": "@changesets/cli/changelog",
+  "commit": false,
+  "fixed": [
+    [
+      "@darwinui/core",
+      "@darwinui/react",
+      "@darwinui/mcp"
+    ]
+  ],
+  "linked": [],
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": [
+    "@darwinui/catalog",
+    "@darwinui/playground",
+    "@darwinui/example-react",
+    "@darwinui/example-mcp",
+    "@darwinui/example-openui"
+  ]
+}

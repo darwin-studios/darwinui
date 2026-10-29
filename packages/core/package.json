@@ -1,0 +1,39 @@
+{
+  "name": "@darwinui/core",
+  "version": "0.1.0",
+  "type": "module",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/darwin-studios/darwinui.git",
+    "directory": "packages/core"
+  },
+  "files": [
+    "dist",
+    "src",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "development": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./schemas/action.json": "./dist/schemas/action.schema.json",
+    "./schemas/presentation.json": "./dist/schemas/presentation.schema.json"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "scripts": {
+    "build": "node ../../scripts/build-library.mjs && tsc -p tsconfig.json --emitDeclarationOnly && node ../../scripts/export-schemas.mjs",
+    "check-types": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "zod": "4.4.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

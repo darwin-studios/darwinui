@@ -1,0 +1,26 @@
+{
+  "name": "@darwinui/example-mcp",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsx build.ts",
+    "start": "tsx server.ts",
+    "check-types": "tsc --noEmit",
+    "start:http": "tsx http.ts"
+  },
+  "dependencies": {
+    "@darwinui/core": "workspace:*",
+    "@darwinui/react": "workspace:*",
+    "@darwinui/mcp": "workspace:*",
+    "@darwinui/catalog": "workspace:*",
+    "@modelcontextprotocol/server": "2.0.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "zod": "4.4.3",
+    "@hono/node-server": "1.19.1"
+  },
+  "devDependencies": {
+    "tsx": "4.20.6"
+  }
+}

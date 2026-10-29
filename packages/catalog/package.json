@@ -1,0 +1,50 @@
+{
+  "name": "@darwinui/catalog",
+  "version": "0.1.0",
+  "type": "module",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/darwin-studios/darwinui.git",
+    "directory": "packages/catalog"
+  },
+  "files": [
+    "dist",
+    "src/styles"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "development": "./src/index.tsx",
+      "default": "./dist/index.js"
+    },
+    "./fixtures": {
+      "types": "./dist/fixtures/service.d.ts",
+      "development": "./src/fixtures/service.ts",
+      "default": "./dist/fixtures/service.js"
+    },
+    "./generative": {
+      "types": "./dist/examples/generative-thread.d.ts",
+      "development": "./src/examples/generative-thread.tsx",
+      "default": "./dist/examples/generative-thread.js"
+    }
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check-types": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@darwinui/core": "workspace:*",
+    "@darwinui/react": "workspace:*",
+    "@openuidev/react-lang": "0.3.2",
+    "zod": "4.4.3"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "private": true
+}
