@@ -89,7 +89,14 @@ export function TaskWorkspace({
           </button>
         ))}
       </nav>
-      <div className={classes.canvas ?? 'dui-task-canvas'} data-thread-canvas ref={canvasRef}>
+      <div
+        className={classes.canvas ?? 'dui-task-canvas'}
+        data-thread-canvas
+        ref={canvasRef}
+        tabIndex={0}
+        role='region'
+        aria-label='Thread content'
+      >
         {children}
       </div>
     </>

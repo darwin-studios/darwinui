@@ -1,5 +1,6 @@
 .dui {
   --dui-accent: #0068d9;
+  --dui-accent-text: #0068d9;
   --dui-bg: #fff;
   --dui-fg: #191919;
   --dui-muted: #69707c;
@@ -15,6 +16,7 @@
   color-scheme: light;
 }
 .dui[data-theme='dark'] {
+  --dui-accent-text: #80b8ff;
   --dui-bg: #141619;
   --dui-fg: #f3f4f6;
   --dui-muted: #a9b0ba;
@@ -92,7 +94,7 @@
   align-items: center;
   justify-content: center;
   background: var(--dui-soft, #f1f3f5);
-  color: var(--dui-accent, #087cff);
+  color: var(--dui-accent-text, #087cff);
   border: 1px solid var(--dui-border, #ddd);
   font-size: 16px;
   font-weight: 700;
@@ -126,7 +128,7 @@
   gap: 5px;
 }
 .dui .dui-capability[aria-pressed='true'] {
-  border-color: var(--dui-accent);
+  border-color: var(--dui-accent-text);
   box-shadow: 0 0 0 1px var(--dui-accent);
 }
 .dui .dui-capability span,
@@ -213,7 +215,7 @@
   border-radius: 12px;
 }
 .dui .dui-link {
-  color: var(--dui-accent);
+  color: var(--dui-accent-text);
 }
 .dui .dui-message {
   padding: 16px 0;
@@ -374,7 +376,7 @@
   border-radius: 8px;
 }
 .dui .dui-thread-list [aria-current] {
-  border-color: var(--dui-accent);
+  border-color: var(--dui-accent-text);
 }
 .dui .dui-scalar-fields {
   display: grid;
