@@ -45,3 +45,19 @@ test('agent perspective preserves submitted results and exposes semantic section
   await page.getByLabel('View', { exact: true }).selectOption('human');
   await expect(page.getByText(/Your 3-day trip/)).toBeVisible();
 });
+
+test('code inspection preserves preview state and expands canonical source', async ({ page }) => {
+  await page.goto('/');
+  await page.getByLabel('Example user').selectOption('joanne');
+  await page.getByRole('button', { name: 'Continue', exact: true }).click();
+  const example = page.locator('#agent-overview');
+  await expect(example.getByText(/Your 3-day trip/)).toBeVisible();
+  await example.getByRole('button', { name: 'Code', exact: true }).click();
+  await expect(example.getByLabel('Example source code')).toContainText('export function AgentDemo');
+  await expect(example.getByRole('button', { name: 'Copy code' })).toBeEnabled();
+  await example.getByRole('button', { name: 'Show more' }).click();
+  await expect(example.getByRole('button', { name: 'Show less' })).toHaveAttribute('aria-expanded', 'true');
+  await expect(page.locator('body')).toHaveJSProperty('scrollWidth', await page.evaluate(() => document.body.clientWidth));
+  await example.getByRole('button', { name: 'Preview', exact: true }).click();
+  await expect(example.getByText(/Your 3-day trip/)).toBeVisible();
+});

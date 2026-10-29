@@ -18,6 +18,14 @@ import {
   ThreadList,
 } from '@darwinui/react';
 
+import { DesignExample, type SourceLoader } from './code-preview.js';
+const defaultSourceLoader: SourceLoader = async id => {
+  const { sourceSnapshots } = await import('./source-snapshots.js');
+  const source = sourceSnapshots[id];
+  if (!source) throw new Error('Unknown example');
+  return source;
+};
+
 import { AgentDemo } from './examples/agent-demo.js';
 import { initialPresentation, profiles } from './fixtures/service.js';
 
@@ -26,7 +34,7 @@ export { executeDemo, initialPresentation, profiles } from './fixtures/service.j
 const GenerativeThreadDemo = lazy(() =>
   import('./examples/generative-thread.js').then((module) => ({ default: module.GenerativeThreadDemo })),
 );
-export function DarwinUICatalog() {
+export function DarwinUICatalog({ loadSource = defaultSourceLoader }: { loadSource?: SourceLoader } = {}) {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [userId, setUserId] = useState('default');
   const [mode, setMode] = useState('human');
@@ -124,25 +132,21 @@ export function DarwinUICatalog() {
             </select>
           </label>
         </div>
-        <section className='dui-preview' id='agent-overview'>
-          <h2>Agent overview</h2>
+        <DesignExample id='agent-overview' title='Agent overview' loadSource={loadSource}>
           <p className='dui-muted'>
             Fictional data. Personalization changes the destination default; it does not load an account.
           </p>
           <AgentDemo key={userId} userId={userId} mode={mode === 'agent' ? 'agent' : 'human'} />
-        </section>
-        <section className='dui-preview' id='approval'>
-          <h2>Approval</h2>
+        </DesignExample>
+        <DesignExample id='approval' title='Approval' loadSource={loadSource}>
           {mode === 'agent' ? agentSection('approval') : <ApprovalCard approval={approval} />}
-        </section>
-        <section className='dui-preview' id='results'>
-          <h2>Results and errors</h2>
+        </DesignExample>
+        <DesignExample id='results' title='Results and errors' loadSource={loadSource}>
           {mode === 'agent'
             ? agentSection('result')
             : results.map((result, i) => <ResultView key={i} result={result} />)}
-        </section>
-        <section className='dui-preview' id='threads'>
-          <h2>Thread workspace</h2>
+        </DesignExample>
+        <DesignExample id='threads' title='Thread workspace' loadSource={loadSource}>
           {mode === 'agent' ? (
             agentSection('thread')
           ) : (
@@ -166,9 +170,8 @@ export function DarwinUICatalog() {
               </TaskWorkspace>
             </>
           )}
-        </section>
-        <section className='dui-preview' id='generative-thread'>
-          <h2>Generative thread</h2>
+        </DesignExample>
+        <DesignExample id='generative-thread' title='Generative thread' loadSource={loadSource}>
           <button type='button' className='dui-button dui-secondary' onClick={() => setShowGenerative(!showGenerative)}>
             {showGenerative ? 'Close generative example' : 'Open generative example'}
           </button>
@@ -177,7 +180,7 @@ export function DarwinUICatalog() {
               <GenerativeThreadDemo key={userId} userId={userId} mode={mode === 'agent' ? 'agent' : 'human'} />
             </Suspense>
           )}
-        </section>
+        </DesignExample>
         <footer>
           <p>TypeScript + React · No account required · No telemetry</p>
           <p>

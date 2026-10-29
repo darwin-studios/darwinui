@@ -27,6 +27,11 @@
       "types": "./dist/examples/generative-thread.d.ts",
       "development": "./src/examples/generative-thread.tsx",
       "default": "./dist/examples/generative-thread.js"
+    },
+    "./code-preview": {
+      "types": "./dist/code-preview.d.ts",
+      "development": "./src/code-preview.tsx",
+      "default": "./dist/code-preview.js"
     }
   },
   "sideEffects": [
