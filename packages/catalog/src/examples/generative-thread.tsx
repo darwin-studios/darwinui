@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useMemo, useState } from 'react';
-import type { ActionIntent, Presentation } from '@darwinui/core';
+import { presentationForAgent, renderAgentView, type ActionIntent, type Presentation } from '@darwinui/core';
 import { ConversationMessage, OperationForm, Results, useAction, WorkProgress } from '@darwinui/react';
 import { createLibrary, createParser, defineComponent, Renderer } from '@openuidev/react-lang';
 import { z } from 'zod';
@@ -115,13 +115,25 @@ export function validateThreadSource(source: string) {
   }
 }
 /** Optional OpenUI integration. The public React package has no parser dependency. */
-export function GenerativeThreadDemo({ userId = 'default' }: { userId?: string }) {
+export function GenerativeThreadDemo({
+  userId = 'default',
+  mode = 'human',
+}: {
+  userId?: string;
+  mode?: 'human' | 'agent';
+}) {
   const profile = profiles.find((p) => p.id === userId) ?? profiles[0];
   const action = useAction(executeDemo, userId);
   const presentation = action.value ?? initialPresentation;
   const source = useMemo(() => composeDemoThread(profile, !!action.value), [profile, action.value]);
   const [inspect, setInspect] = useState(false);
   const valid = useMemo(() => validateThreadSource(source), [source]);
+  if (mode === 'agent')
+    return (
+      <pre className='dui-code' tabIndex={0}>
+        {renderAgentView(presentationForAgent(presentation))}
+      </pre>
+    );
   return (
     <>
       <p className='dui-muted'>

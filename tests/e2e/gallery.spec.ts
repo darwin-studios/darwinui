@@ -32,3 +32,16 @@ test('generative thread changes composition and clears user context', async ({ p
   await expect(thread.getByText(/Your 3-day trip/)).toHaveCount(0);
   await expect(thread.getByText('Hello Alex. Plan an escape from London.')).toBeVisible();
 });
+
+test('agent perspective preserves submitted results and exposes semantic sections', async ({ page }) => {
+  await page.goto('/');
+  await page.getByLabel('Example user').selectOption('joanne');
+  await page.getByRole('button', { name: 'Continue', exact: true }).click();
+  await expect(page.getByText(/Your 3-day trip/)).toBeVisible();
+  await page.getByLabel('View', { exact: true }).selectOption('agent');
+  await expect(page.locator('#agent-overview pre')).toContainText('Your 3-day trip to Ozark Mountains');
+  await expect(page.locator('#approval pre')).toContainText('darwinui-agent-v1');
+  await expect(page.locator('#threads pre')).toContainText('Weekend escape');
+  await page.getByLabel('View', { exact: true }).selectOption('human');
+  await expect(page.getByText(/Your 3-day trip/)).toBeVisible();
+});

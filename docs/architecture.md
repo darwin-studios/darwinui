@@ -30,3 +30,7 @@ The caller supplies scoped data and context. The framework does not collect prof
 The monorepo distribution is canonical. Both the public playground and Navigator `/ui` import the catalog. Navigator imports reusable layouts directly. Editing source updates local consumers through their normal dev server; preview controls only edit local example state. Released applications and installed packages update through normal reviewed builds and releases.
 
 The public repo accepts contributions. Import public changes into canonical source with contributor attribution, test Navigator, then export. Never overwrite a divergent public repository. Record source revision and content digest with the release.
+
+## Human and agent consumers
+
+The same semantic interaction can be rendered visually or for an agent caller. Delivery (Web, MCP, API) is independent of perspective (human, agent). See [human and agent interfaces](human-and-agent.md).

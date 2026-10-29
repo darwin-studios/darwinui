@@ -64,4 +64,4 @@ Creators author React. Agent backends can use any language. Human interfaces and
 
 Threads can also change their composition at runtime using the optional OpenUI example. Read [generative threads](docs/generative-threads.md) for the data, personalization, and action boundaries.
 
-Read [architecture](docs/architecture.md), [compatibility](docs/compatibility.md), [contribution workflow](CONTRIBUTING.md), and [asset licensing](docs/assets.md).
+Read [human and agent interfaces](docs/human-and-agent.md), [architecture](docs/architecture.md), [compatibility](docs/compatibility.md), [contribution workflow](CONTRIBUTING.md), and [asset licensing](docs/assets.md).

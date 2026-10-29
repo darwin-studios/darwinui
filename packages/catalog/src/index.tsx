@@ -2,6 +2,14 @@
 
 import { lazy, Suspense, useState } from 'react';
 import {
+  createAgentView,
+  presentationForAgent,
+  renderAgentView,
+  type Approval,
+  type Result,
+  type Thread,
+} from '@darwinui/core';
+import {
   ApprovalCard,
   ConversationMessage,
   DarwinUIProvider,
@@ -24,6 +32,51 @@ export function DarwinUICatalog() {
   const [mode, setMode] = useState('human');
   const [showGenerative, setShowGenerative] = useState(false);
   const [selectedThread, setSelectedThread] = useState('weekend');
+  const destination = profiles.find((p) => p.id === userId)?.destination || 'Ozark Mountains';
+  const approval: Approval = {
+    id: 'example-review',
+    title: 'Review itinerary',
+    description: 'Read-only approval state. The backend owns authorization.',
+    status: 'pending',
+    details: { Destination: destination },
+  };
+  const results: Result[] = [
+    { type: 'fields', fields: { Destination: destination, Duration: '3 days' } },
+    { type: 'error', message: 'Example error: the provider is unavailable. No automatic retry.' },
+  ];
+  const threads: Thread[] = [
+    {
+      id: 'weekend',
+      title: 'Weekend escape',
+      status: 'completed',
+      messages: [
+        { id: 'request', author: 'You', text: 'Plan a short trip.' },
+        { id: 'response', author: 'Trail Guide', text: 'Your sample itinerary is ready.' },
+      ],
+    },
+    {
+      id: 'packing',
+      title: 'Packing for a hike',
+      status: 'waiting',
+      messages: [
+        { id: 'request', author: 'You', text: 'What should I bring?' },
+        { id: 'response', author: 'Trail Guide', text: 'Where are you heading?' },
+      ],
+    },
+  ];
+  const agentSection = (kind: string) => (
+    <pre className='dui-code' tabIndex={0}>
+      {renderAgentView(
+        createAgentView(
+          presentationForAgent(
+            { ...initialPresentation, approval, results },
+            threads.find((t) => t.id === selectedThread),
+          ).components.filter((c) => c.kind.startsWith(kind)),
+        ),
+      )}
+    </pre>
+  );
+
   return (
     <DarwinUIProvider context={{ theme, user: { id: userId } }}>
       <main className='dui-catalog'>
@@ -76,69 +129,43 @@ export function DarwinUICatalog() {
           <p className='dui-muted'>
             Fictional data. Personalization changes the destination default; it does not load an account.
           </p>
-          {mode === 'human' ? (
-            <AgentDemo key={userId} userId={userId} />
-          ) : (
-            <pre className='dui-code'>
-              {JSON.stringify(
-                {
-                  presentation: initialPresentation,
-                  availableActions: initialPresentation.operations.map((o) => ({
-                    operationId: o.id,
-                    inputFields: o.fields,
-                  })),
-                  context: profiles.find((p) => p.id === userId),
-                },
-                null,
-                2,
-              )}
-            </pre>
-          )}
+          <AgentDemo key={userId} userId={userId} mode={mode === 'agent' ? 'agent' : 'human'} />
         </section>
         <section className='dui-preview' id='approval'>
           <h2>Approval</h2>
-          <ApprovalCard
-            approval={{
-              id: 'example-review',
-              title: 'Review itinerary',
-              description: 'Read-only approval state. The backend owns authorization.',
-              status: 'pending',
-              details: { Destination: 'Ozark Mountains' },
-            }}
-          />
+          {mode === 'agent' ? agentSection('approval') : <ApprovalCard approval={approval} />}
         </section>
         <section className='dui-preview' id='results'>
           <h2>Results and errors</h2>
-          <ResultView result={{ type: 'fields', fields: { Destination: 'Ozark Mountains', Duration: '3 days' } }} />
-          <ResultView
-            result={{ type: 'error', message: 'Example error: the provider is unavailable. No automatic retry.' }}
-          />
+          {mode === 'agent'
+            ? agentSection('result')
+            : results.map((result, i) => <ResultView key={i} result={result} />)}
         </section>
         <section className='dui-preview' id='threads'>
           <h2>Thread workspace</h2>
-          <ThreadList
-            threads={[
-              { id: 'weekend', title: 'Weekend escape', status: 'completed', messages: [] },
-              { id: 'packing', title: 'Packing for a hike', status: 'waiting', messages: [] },
-            ]}
-            selectedId={selectedThread}
-            onSelect={setSelectedThread}
-          />
-          <TaskWorkspace
-            agentName='Trail Guide'
-            title={selectedThread === 'weekend' ? 'Weekend escape' : 'Packing for a hike'}
-            steps={[]}
-            selectedStep={null}
-            onBack={() => setSelectedThread('weekend')}
-            onReveal={() => {}}
-          >
-            <ConversationMessage author='You'>
-              {selectedThread === 'weekend' ? 'Plan a short trip.' : 'What should I bring?'}
-            </ConversationMessage>
-            <ConversationMessage author='Trail Guide'>
-              {selectedThread === 'weekend' ? 'Your sample itinerary is ready.' : 'Where are you heading?'}
-            </ConversationMessage>
-          </TaskWorkspace>
+          {mode === 'agent' ? (
+            agentSection('thread')
+          ) : (
+            <>
+              {' '}
+              <ThreadList threads={threads} selectedId={selectedThread} onSelect={setSelectedThread} />
+              <TaskWorkspace
+                agentName='Trail Guide'
+                title={selectedThread === 'weekend' ? 'Weekend escape' : 'Packing for a hike'}
+                steps={[]}
+                selectedStep={null}
+                onBack={() => setSelectedThread('weekend')}
+                onReveal={() => {}}
+              >
+                <ConversationMessage author='You'>
+                  {selectedThread === 'weekend' ? 'Plan a short trip.' : 'What should I bring?'}
+                </ConversationMessage>
+                <ConversationMessage author='Trail Guide'>
+                  {selectedThread === 'weekend' ? 'Your sample itinerary is ready.' : 'Where are you heading?'}
+                </ConversationMessage>
+              </TaskWorkspace>
+            </>
+          )}
         </section>
         <section className='dui-preview' id='generative-thread'>
           <h2>Generative thread</h2>
@@ -147,7 +174,7 @@ export function DarwinUICatalog() {
           </button>
           {showGenerative && (
             <Suspense fallback={<p role='status'>Loading runtime composition…</p>}>
-              <GenerativeThreadDemo key={userId} userId={userId} />
+              <GenerativeThreadDemo key={userId} userId={userId} mode={mode === 'agent' ? 'agent' : 'human'} />
             </Suspense>
           )}
         </section>

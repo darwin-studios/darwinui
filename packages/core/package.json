@@ -21,7 +21,8 @@
       "default": "./dist/index.js"
     },
     "./schemas/action.json": "./dist/schemas/action.schema.json",
-    "./schemas/presentation.json": "./dist/schemas/presentation.schema.json"
+    "./schemas/presentation.json": "./dist/schemas/presentation.schema.json",
+    "./schemas/agent-view.json": "./dist/schemas/agent-view.schema.json"
   },
   "sideEffects": [
     "**/*.css"

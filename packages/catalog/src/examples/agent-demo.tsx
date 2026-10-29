@@ -1,17 +1,25 @@
 'use client';
 
 import { useState } from 'react';
-import type { ActionDispatcher, Presentation } from '@darwinui/core';
+import {
+  createAgentView,
+  presentationForAgent,
+  renderAgentView,
+  type ActionDispatcher,
+  type Presentation,
+} from '@darwinui/core';
 import { AgentOverview, CapabilityList, OperationForm, Results, useAction, WorkProgress } from '@darwinui/react';
 
 import { executeDemo, initialPresentation, profiles } from '../fixtures/service.js';
 
 export function AgentDemo({
   userId = 'default',
+  mode = 'human',
   dispatch = executeDemo,
   presentation = initialPresentation,
 }: {
   userId?: string;
+  mode?: 'human' | 'agent';
   dispatch?: ActionDispatcher;
   presentation?: Presentation;
 }) {
@@ -19,6 +27,28 @@ export function AgentDemo({
   const operation = presentation.operations.find((op) => op.id === selected);
   const state = useAction(dispatch, userId);
   const profile = profiles.find((p) => p.id === userId) ?? profiles[0];
+  if (mode === 'agent') {
+    const view = presentationForAgent(state.value ?? presentation);
+    return (
+      <pre className='dui-code' tabIndex={0}>
+        {renderAgentView(
+          createAgentView(
+            view.components.map((component) =>
+              component.kind === 'operation'
+                ? {
+                    ...component,
+                    data: {
+                      operation: component.data,
+                      suppliedDefaults: { destination: profile.destination, days: 3 },
+                    },
+                  }
+                : component,
+            ),
+          ),
+        )}
+      </pre>
+    );
+  }
   return (
     <AgentOverview
       headingLevel={3}
