@@ -13,7 +13,8 @@
     "audit:public": "node scripts/audit-public.mjs",
     "changeset": "changeset",
     "version:packages": "changeset version",
-    "release": "pnpm build && changeset publish"
+    "release": "pnpm build && changeset publish",
+    "dev:web": "pnpm --filter @darwinui/web dev"
   },
   "devDependencies": {
     "@changesets/cli": "2.29.7",

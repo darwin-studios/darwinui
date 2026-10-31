@@ -1,0 +1,16 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "pnpm --filter @darwinui/web... build",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "outputDirectory": "apps/web/dist",
+  "rewrites": [
+    {
+      "source": "/docs",
+      "destination": "https://darwinui.mintlify.site/docs"
+    },
+    {
+      "source": "/docs/:path*",
+      "destination": "https://darwinui.mintlify.site/docs/:path*"
+    }
+  ]
+}

@@ -79,6 +79,25 @@ importers:
         specifier: 6.3.5
         version: 6.3.5(@types/node@22.18.10)(tsx@4.20.6)
 
+  apps/web:
+    dependencies:
+      '@darwinui/react':
+        specifier: workspace:*
+        version: link:../../packages/react
+      '@darwinui/website':
+        specifier: workspace:*
+        version: link:../../packages/website
+      react:
+        specifier: 19.2.0
+        version: 19.2.0
+      react-dom:
+        specifier: 19.2.0
+        version: 19.2.0(react@19.2.0)
+    devDependencies:
+      vite:
+        specifier: 6.3.5
+        version: 6.3.5(@types/node@22.18.10)(tsx@4.20.6)
+
   examples/mcp-agent:
     dependencies:
       '@darwinui/catalog':
@@ -165,6 +184,9 @@ importers:
       '@darwinui/react':
         specifier: workspace:*
         version: link:../react
+      '@darwinui/website':
+        specifier: workspace:*
+        version: link:../website
       '@openuidev/react-lang':
         specifier: 0.3.2
         version: 0.3.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(zod@4.4.3)
@@ -210,6 +232,24 @@ importers:
       '@radix-ui/react-slot':
         specifier: 1.2.4
         version: 1.2.4(@types/react@19.2.2)(react@19.2.0)
+      react:
+        specifier: ^19.0.0
+        version: 19.2.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.0(react@19.2.0)
+
+  packages/website:
+    dependencies:
+      '@darwinui/core':
+        specifier: workspace:*
+        version: link:../core
+      '@darwinui/react':
+        specifier: workspace:*
+        version: link:../react
+      lucide-react:
+        specifier: 0.468.0
+        version: 0.468.0(react@19.2.0)
       react:
         specifier: ^19.0.0
         version: 19.2.0
@@ -1146,6 +1186,11 @@ packages:
 
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
+
+  lucide-react@0.468.0:
+    resolution: {integrity: sha512-6koYRhnM2N0GGZIdXzSeiNwguv1gt/FAjZOiPl76roBi3xKEXa4WmfpxgQwTTL4KipXjefrnf3oV4IsYhi4JFA==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0-rc
 
   lucide-react@0.575.0:
     resolution: {integrity: sha512-VuXgKZrk0uiDlWjGGXmKV6MSk9Yy4l10qgVvzGn2AWBx1Ylt0iBexKOAoA6I7JO3m+M9oeovJd3yYENfkUbOeg==}
@@ -2471,6 +2516,10 @@ snapshots:
   loupe@3.2.1: {}
 
   lru-cache@10.4.3: {}
+
+  lucide-react@0.468.0(react@19.2.0):
+    dependencies:
+      react: 19.2.0
 
   lucide-react@0.575.0(react@19.2.0):
     dependencies:

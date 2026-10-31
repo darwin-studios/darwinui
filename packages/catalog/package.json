@@ -45,7 +45,8 @@
     "@darwinui/core": "workspace:*",
     "@darwinui/react": "workspace:*",
     "@openuidev/react-lang": "0.3.2",
-    "zod": "4.4.3"
+    "zod": "4.4.3",
+    "@darwinui/website": "workspace:*"
   },
   "peerDependencies": {
     "react": "^19.0.0",
