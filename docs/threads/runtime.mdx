@@ -1,0 +1,18 @@
+---
+title: "Runtime composition"
+description: "Generate a thread interface from a bounded component vocabulary."
+---
+
+The repository includes an optional OpenUI composition example. It demonstrates a bounded component catalog and deterministic fictional generation; it is not a hosted model service.
+
+```bash
+pnpm --filter @darwinui/example-openui dev
+```
+
+Check the example package name in `examples/openui-composition/package.json` if running a different revision.
+
+For a production generator, provide a catalog of allowed components and operation IDs, validate generated output, and bind actions to server-owned dispatchers. Never execute generated JavaScript or treat generated props as authorization.
+
+Keep the authoritative thread separate from its generated layout. Apply validated revisions atomically, preserve field values and focus, and reject stale revisions after switching users or threads. If a component is unsupported, show a structured result instead of a blank page.
+
+See the source guide `docs/generative-threads.md` for composition boundaries and `examples/openui-composition` for the runnable example.

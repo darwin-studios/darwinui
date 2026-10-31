@@ -1,0 +1,21 @@
+---
+title: "Operations"
+description: "Describe a capability and its inputs."
+---
+
+An operation has a stable `id`, a `name`, an optional description, and `fields`. Supported form field types are `text`, `number`, and `select`.
+
+```ts
+import { operationSchema } from '@darwinui/core';
+
+const planTrip = operationSchema.parse({
+  id: 'plan-trip',
+  name: 'Plan a trip',
+  fields: [
+    { name: 'destination', label: 'Destination', type: 'text', required: true },
+    { name: 'days', label: 'Days', type: 'number', minimum: 1, maximum: 14, required: true },
+  ],
+});
+```
+
+Use `CapabilityList` to select an operation and `OperationForm` to collect inputs. Keep operation IDs stable across human and agent representations. An operation definition does not grant permission to execute it.

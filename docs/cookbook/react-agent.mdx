@@ -1,0 +1,18 @@
+---
+title: "React agent recipe"
+description: "Run the maintained React example."
+---
+
+Follow the [quickstart](/quickstart), then open `examples/react-agent/src/main.tsx`. The entry point mounts the component catalog; its agent demo composes identity, operation selection, inputs, progress, approvals, and results.
+
+Run the repository checks:
+
+```bash
+pnpm check-types
+pnpm test
+pnpm test:consumers
+```
+
+Replace the fictional fixture service with an authenticated backend dispatcher. Retain the operation model and validate each returned presentation. Exercise empty inputs, invalid numbers, a pending request, execution failure, and a successful result.
+
+Do not deploy fixture callbacks as production execution. The example does not establish provider authorization or payment handling.

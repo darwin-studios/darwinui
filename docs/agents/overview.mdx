@@ -1,0 +1,16 @@
+---
+title: "Agents"
+description: "Give your agent a consistent identity and entry point."
+---
+
+An agent is the identity offering operations. Its model contains `id`, `name`, and optional `description` and HTTPS/HTTP `avatarUrl`.
+
+```tsx
+import { AgentOverview, CapabilityList } from '@darwinui/react';
+```
+
+Use `AgentIdentity` for a header and `AgentAvatar` for an avatar. `AgentOverview` composes identity with slots for an input composer, operations, and saved work. Pass your own components into those slots to preserve your application behavior.
+
+Agent identity is presentation data. Resolve the authenticated provider and permitted operations on the server before dispatching work. An agent name or avatar never establishes trust.
+
+Next: [Operations](/operations/overview), [Saved threads](/threads/overview).

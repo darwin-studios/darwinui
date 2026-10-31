@@ -1,0 +1,21 @@
+---
+title: "Human and agent views"
+description: "Expose the same work visually or as validated structured data."
+---
+
+Human and agent views describe presentation, not transport or authority. A human can use Web or an embedded MCP app. An agent caller can consume semantic JSON through a host-defined API or tool.
+
+```ts
+import { presentationSchema, presentationForAgent, renderAgentView } from '@darwinui/core';
+
+const presentation = presentationSchema.parse(serverResponse);
+const semanticView = presentationForAgent(presentation);
+const json = renderAgentView(semanticView);
+const text = renderAgentView(semanticView, 'text');
+```
+
+`serverResponse` is your application's response. JSON preserves the structured representation. Text is a convenience summary.
+
+The default projection describes operations as unavailable until an authorized host binding exists. Use `createAgentView` for explicit semantic components when your host supplies those bindings. The backend still checks every action.
+
+There is no universal DarwinUI HTTP endpoint or automatic human/agent query parameter. Define that request contract in your application and validate both representations against the same authoritative state.

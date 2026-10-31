@@ -1,0 +1,18 @@
+---
+title: "Component reference"
+description: "Find the current exported components and their roles."
+---
+
+| Area | Exports | Purpose |
+| --- | --- | --- |
+| Agents | AgentAvatar, AgentIdentity | Identity |
+| Layouts | AgentOverview, TaskWorkspace | Compose a page or thread |
+| Operations | CapabilityList, OperationForm, ScalarFields, Button | Choose and submit work |
+| Threads | ThreadList, ConversationMessage, ActivityRow, WorkProgress | Navigate and follow work |
+| Decisions | ApprovalCard, DecisionRequest | Present approval requests |
+| Results | Results, ResultView, FieldList | Display outputs |
+| Context | DarwinUIProvider, useDarwinUI | Read presentation context |
+
+The published source of truth is the TypeScript prop type in each component under `packages/react/src/components`. Layout props live in `packages/react/src/layouts/index.tsx`. Avoid importing private catalog fixtures into your product.
+
+For concrete usage, start with [Forms](/operations/forms), [Threads](/threads/overview), and the [cookbook](/cookbook/index).

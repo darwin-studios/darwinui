@@ -1,0 +1,21 @@
+---
+title: "Forms and dispatch"
+description: "Validate inputs and connect an action to your application."
+---
+
+`OperationForm` accepts `operation`, `onSubmit`, `pending`, and `initialValues`. It validates required values, number ranges, and select options before emitting an `ActionIntent`.
+
+```tsx
+<OperationForm
+  key={`${userId}:${operation.id}`}
+  operation={operation}
+  pending={pending}
+  onSubmit={dispatch}
+/>
+```
+
+Here `userId`, `operation`, `pending`, and `dispatch` come from your application. The key remounts the form when the user or operation changes; `initialValues` initializes local state and is not a live synchronization channel.
+
+The emitted action contains `id`, `operationId`, and `input`. Your dispatcher must authenticate the caller, resolve the operation from a server-owned registry, revalidate its inputs, and execute it. Do not trust a browser-supplied operation definition.
+
+Set pending while the request runs, then validate the returned presentation before rendering. Retain inputs on recoverable failure. Use the action ID for duplicate protection in your backend; the UI itself does not guarantee idempotency.

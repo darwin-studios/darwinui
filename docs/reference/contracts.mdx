@@ -1,0 +1,20 @@
+---
+title: "Data contracts"
+description: "Validate presentations at integration boundaries."
+---
+
+`@darwinui/core` exports Zod schemas and inferred TypeScript types for agents, operations, actions, progress, approvals, results, threads, and semantic views.
+
+```ts
+import { presentationSchema, threadSchema, actionSchema } from '@darwinui/core';
+
+const presentation = presentationSchema.parse(rawPresentation);
+const thread = threadSchema.parse(rawThread);
+const action = actionSchema.parse(rawAction);
+```
+
+These variables represent data received by your application. Parse external values before rendering or dispatching. Handle parse failures with an explicit error state.
+
+A presentation uses version `0.1`; a semantic agent view uses `darwinui-agent-v1`. JSON Schema artifacts are generated during the core build and exported as `@darwinui/core/schemas/presentation.json`, `action.json`, and `agent-view.json`.
+
+Schema validity does not establish permissions, provider trust, or task success. Authenticate callers, validate operation-specific inputs, and authorize access separately.

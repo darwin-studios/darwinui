@@ -65,3 +65,7 @@ Creators author React. Agent backends can use any language. Human interfaces and
 Threads can also change their composition at runtime using the optional OpenUI example. Read [generative threads](docs/generative-threads.md) for the data, personalization, and action boundaries.
 
 Read [human and agent interfaces](docs/human-and-agent.md), [architecture](docs/architecture.md), [compatibility](docs/compatibility.md), [contribution workflow](CONTRIBUTING.md), and [asset licensing](docs/assets.md).
+
+## Documentation and cookbook
+
+The Mintlify source lives in [docs](docs/index.mdx), organized around Agents, Threads, and Operations. Start with the [quickstart](docs/quickstart.mdx) or [cookbook](cookbook/README.md). Preview the site from `docs` with `npx mint@4.2.1184 dev`.

@@ -1,0 +1,14 @@
+---
+title: "Python backend recipe"
+description: "Return a presentation from Python and render it in React."
+---
+
+You do not need a Python UI package to produce the presentation contract. The repository includes a small standard-library example:
+
+```bash
+python3 cookbook/python-presentation/main.py
+```
+
+It prints a fictional presentation as JSON. Your web service can return that shape after authenticating the caller and loading authorized data. Validate it with `presentationSchema.parse` in the JavaScript consumer, then render its agent, operations, progress, and results.
+
+This recipe demonstrates serialization only. It does not run an HTTP server, authenticate users, execute operations, or create shared sessions. Use generated JSON Schemas if you add server-side validation in Python.

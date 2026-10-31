@@ -1,0 +1,19 @@
+---
+title: "Render in your application"
+description: "Embed React components without depending on Navigator."
+---
+
+DarwinUI can render in your own React 19 application. Wrap the UI in `DarwinUIProvider`, import the stylesheet, and connect component callbacks to your application's controller.
+
+```tsx
+<DarwinUIProvider context={{ theme: 'dark', locale: 'en', density: 'comfortable' }}>
+  <AgentIdentity agent={agent} />
+  <OperationForm operation={operation} onSubmit={dispatch} pending={pending} />
+</DarwinUIProvider>
+```
+
+The snippet assumes application-owned agent, operation, pending state, and dispatcher. The provider scopes CSS using the `dui` class and theme attributes. It does not require Tailwind configuration.
+
+In a server-rendered application, render interactive components from a client boundary and load CSS at the framework's supported global entry point. Keep server credentials outside client bundles.
+
+Use [Personalization](/rendering/personalization) to pass per-user context and [Human and agent views](/rendering/human-agent) to expose semantic output.

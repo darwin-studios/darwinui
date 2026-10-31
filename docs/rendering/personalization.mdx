@@ -1,0 +1,22 @@
+---
+title: "Personalization"
+description: "Apply user context without leaking state across users."
+---
+
+`DarwinUIProvider` accepts theme, locale, density, optional user identity, and host capabilities. It does not fetch a user profile or translate content automatically.
+
+```tsx
+<DarwinUIProvider key={user.id} context={{
+  theme: user.theme,
+  locale: user.locale,
+  user: { id: user.id, displayName: user.displayName },
+}}>
+  {children}
+</DarwinUIProvider>
+```
+
+Resolve user data from your authenticated application. Keep preferences separate from authorization. Choose saved work, initial values, and content on the server or through an authorized API.
+
+When the account changes, cancel pending requests, clear local drafts that belong to the previous user, and reload permitted threads. Include user and thread identity in cache keys. A provider value alone does not enforce data isolation.
+
+Personalized layouts and runtime generation must use the same validated operations and approval rules as the default interface.

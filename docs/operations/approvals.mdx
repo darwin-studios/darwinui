@@ -1,0 +1,12 @@
+---
+title: "Approvals"
+description: "Present decisions while keeping authorization on the server."
+---
+
+`ApprovalCard` renders an approval with an ID, title, description, details, and status: `pending`, `accepted`, or `rejected`. Its `onDecision` callback receives `accepted` or `rejected`.
+
+Display the exact action, amount, recipient, and account when they matter. The backend must confirm that the current caller can decide and that the approval still belongs to the current action revision.
+
+In a shared session, members can direct the AI, while the owner approves payments and connected-account access. That policy belongs in your authorization layer. Removing a button is not enforcement.
+
+After submitting a decision, display authoritative returned state. Handle an already-decided response without applying the action again. See [Multiplayer](/threads/multiplayer).

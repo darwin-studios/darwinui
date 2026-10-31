@@ -1,0 +1,33 @@
+---
+title: "Quickstart"
+description: "Run DarwinUI from source and inspect your first agent."
+---
+
+Use Node.js 22 and pnpm 10.12.1, matching this repository's validation workflow.
+
+```bash
+git clone https://github.com/darwin-studios/darwinui.git
+cd darwinui
+corepack enable
+pnpm install --frozen-lockfile
+pnpm build
+pnpm dev
+```
+
+Open the local URL printed by the development server. The catalog uses fictional data; its trip planner does not make bookings or charges.
+
+The React entry point is `examples/react-agent/src/main.tsx`. It renders the catalog. For a smaller application, replace its catalog with `DarwinUIProvider` and `AgentIdentity`:
+
+```tsx
+import { createRoot } from 'react-dom/client';
+import { DarwinUIProvider, AgentIdentity } from '@darwinui/react';
+import '@darwinui/react/styles.css';
+
+createRoot(document.getElementById('root')!).render(
+  <DarwinUIProvider context={{ theme: 'light', locale: 'en' }}>
+    <AgentIdentity agent={{ id: 'guide', name: 'Trail Guide' }} />
+  </DarwinUIProvider>
+);
+```
+
+This import resolves inside the workspace. For another application, follow [Installation](/installation). Next, add an [operation form](/operations/forms) and connect its callback to your backend.

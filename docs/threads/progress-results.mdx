@@ -1,0 +1,12 @@
+---
+title: "Progress and results"
+description: "Render authoritative progress and typed results."
+---
+
+`WorkProgress` displays steps with `pending`, `running`, `completed`, or `failed` status. `ConversationMessage` renders a message; `ActivityRow` summarizes an activity. Use `Results` and `ResultView` for outputs.
+
+Supported result variants are text, fields, file, image, video, and error. File and media results include a name and an HTTP or HTTPS URL. Schema validation does not prove the URL is authorized or safe to fetch: your host controls access and content policy.
+
+Keep progress distinct from completion. A submitted action or a running step is not a successful result. Render an error with a recoverable next action when execution fails; preserve completed output when a later step fails.
+
+For streaming, apply ordered server revisions and ignore updates from an older user, thread, or operation. The framework does not supply an event stream or reconnect protocol.

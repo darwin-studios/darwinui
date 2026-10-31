@@ -1,0 +1,12 @@
+---
+title: "Threads"
+description: "Keep messages and the state of work together."
+---
+
+A thread records a unit of work with an agent. The current model has `id`, `title`, `status`, and `messages`. Status is `idle`, `running`, `waiting`, `completed`, or `failed`. Each message has an `id`, `author`, and `text`.
+
+`ThreadList` renders saved work and calls `onSelect(id)`. `TaskWorkspace` provides a title, back action, step navigation, and a content slot. Compose messages, progress, approvals, and results inside that slot.
+
+Your backend owns thread persistence and membership. Load the selected thread only after authorization. Closing a tab need not delete its history; decide retention separately from whether the session is currently open.
+
+Use stable IDs for messages and steps so updates preserve focus and local input. See [Runtime composition](/threads/runtime) and [Multiplayer](/threads/multiplayer).

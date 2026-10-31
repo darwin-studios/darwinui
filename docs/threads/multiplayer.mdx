@@ -1,0 +1,22 @@
+---
+title: "Multiplayer"
+description: "Integrate shared work with an application-owned session."
+---
+
+Multiplayer means participants work in the same thread or Navigate session. Members may send messages and direct the AI; the owner approves sensitive actions.
+
+<Note>The public repository currently does not export a SharedSession component. The monorepo has newer presentation work. Live invitations, membership, and synchronization are not provided by this public package.</Note>
+
+Implement shared work at the host boundary:
+
+1. Create a server-owned session with an owner and membership records.
+2. Issue expiring, revocable invitations. Joining authenticates a person and adds an explicit membership.
+3. Authorize every read, message, action, and event subscription against current membership.
+4. Serialize or queue competing AI requests; assign stable event IDs and server revisions.
+5. Broadcast persisted updates to participants and reconnect from the last acknowledged revision.
+6. Restrict payments and connected-account approvals to the owner on the server.
+7. Revoke subscriptions and future reads when someone leaves or is removed.
+
+Render participant identity beside messages. Never expose an owner's credentials or private account details to other members. Presence is temporary; history retention is a separate policy.
+
+The design-library Solo/Multiplayer switch is a preview setting. In a product, sharing changes the current session through authenticated invite and membership actions, not by switching to an unrelated demo.

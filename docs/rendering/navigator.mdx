@@ -1,0 +1,12 @@
+---
+title: "Navigator and other hosts"
+description: "Integrate agent presentations while preserving host responsibilities."
+---
+
+Navigator is a host product; DarwinUI is an interface framework. Installing DarwinUI does not register your agent with Navigator or automatically provide execution transport.
+
+A host integration needs an authenticated provider connection, a supported presentation contract, a renderer, and an authorized action dispatcher. Validate provider data before rendering and reconcile returned state after every action.
+
+Agents that do not use DarwinUI can still be represented by a host adapter when their protocol and data are supported. Label a host-generated presentation accurately; it is not necessarily an interface supplied by the agent's creator.
+
+The public compatibility guide marks Navigator integration as under development. A2A, A2UI, AG-UI, and native mobile adapters are not supplied by this package. Use the React renderer for your own web host, or the MCP example for compatible embedded hosts.

@@ -1,0 +1,79 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "DarwinUI",
+  "colors": {
+    "primary": "#007AFF",
+    "light": "#007AFF",
+    "dark": "#409CFF"
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Start",
+        "pages": [
+          "index",
+          "quickstart",
+          "installation"
+        ]
+      },
+      {
+        "group": "Agents",
+        "pages": [
+          "agents/overview"
+        ]
+      },
+      {
+        "group": "Threads",
+        "pages": [
+          "threads/overview",
+          "threads/progress-results",
+          "threads/multiplayer",
+          "threads/runtime"
+        ]
+      },
+      {
+        "group": "Operations",
+        "pages": [
+          "operations/overview",
+          "operations/forms",
+          "operations/approvals"
+        ]
+      },
+      {
+        "group": "Rendering",
+        "pages": [
+          "rendering/react",
+          "rendering/human-agent",
+          "rendering/personalization",
+          "rendering/mcp",
+          "rendering/navigator"
+        ]
+      },
+      {
+        "group": "Reference",
+        "pages": [
+          "reference/components",
+          "reference/contracts"
+        ]
+      },
+      {
+        "group": "Cookbook",
+        "pages": [
+          "cookbook/index",
+          "cookbook/react-agent",
+          "cookbook/mcp-agent",
+          "cookbook/python-backend"
+        ]
+      }
+    ]
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/darwin-studios/darwinui"
+      }
+    ]
+  }
+}

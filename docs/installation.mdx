@@ -1,0 +1,29 @@
+---
+title: "Installation"
+description: "Understand package availability and use local package builds."
+---
+
+The repository contains three public package candidates:
+
+| Package | Purpose |
+| --- | --- |
+| `@darwinui/core` | Models, Zod schemas, input validation, semantic agent views |
+| `@darwinui/react` | React 19 components, layouts, provider, and CSS |
+| `@darwinui/mcp` | Separate client, server, and build adapters for MCP Apps |
+
+<Warning>The core and React packages currently return 404 from npm. Do not use a registry install as your onboarding path yet.</Warning>
+
+Use the [source quickstart](/quickstart). To evaluate in a separate React 19 application, build the workspace and pack the core and React packages:
+
+```bash
+pnpm build
+mkdir -p artifacts
+pnpm --dir packages/core pack --pack-destination ../../artifacts
+pnpm --dir packages/react pack --pack-destination ../../artifacts
+```
+
+Install both generated `.tgz` files into your application with its package manager. Use their actual paths. Keep core and React on the same version. Import `@darwinui/react/styles.css` once at the application entry point.
+
+There is no Python renderer or Python SDK in this repository. A Python backend can return JSON matching the presentation schema; a JavaScript frontend validates and renders it. See [Python backend](/cookbook/python-backend).
+
+Before an npm release, the repository workflow requires package builds, types, unit tests, consumer tests, browser tests, and a named external MCP-host verification record. Publishing needs npm credentials; having a workflow is not evidence that a version is available.

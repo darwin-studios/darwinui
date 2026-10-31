@@ -1,0 +1,22 @@
+name: Documentation
+on:
+  pull_request:
+    paths: ['docs/**', 'cookbook/**', '.github/workflows/docs.yml']
+  push:
+    branches: [main]
+    paths: ['docs/**', 'cookbook/**', '.github/workflows/docs.yml']
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --global mint@4.2.1184
+      - run: mint validate
+        working-directory: docs
+      - run: mint broken-links
+        working-directory: docs

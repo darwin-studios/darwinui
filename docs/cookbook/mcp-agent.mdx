@@ -1,0 +1,10 @@
+---
+title: "MCP recipe"
+description: "Build and exercise the maintained embedded example."
+---
+
+Use [Embedded MCP apps](/rendering/mcp) for the launch commands. The example separates server registration, browser bootstrap, view rendering, and HTML build.
+
+Validate the end-to-end path in a compatible client: call `trail_guide`, see the interface, submit valid inputs, and confirm the returned state renders. Repeat with a theme change and a host that cannot call tools. Unsupported capabilities should produce a clear state instead of a stalled button.
+
+Keep server secrets in the server process. Browser actions are requests to the host, not authority to execute arbitrary operations. Record the client name and version when reporting compatibility.

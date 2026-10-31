@@ -1,0 +1,22 @@
+---
+title: "Embedded MCP apps"
+description: "Build the reference app for a compatible MCP host."
+---
+
+The MCP package separates browser, server, and build entry points: `@darwinui/mcp/client`, `@darwinui/mcp/server`, and `@darwinui/mcp/build`.
+
+From the repository root:
+
+```bash
+pnpm build
+pnpm --filter @darwinui/example-mcp build
+pnpm --filter @darwinui/example-mcp start
+```
+
+The last command starts a stdio server. Configure your compatible MCP client to launch that command with the repository as its working directory. It is not a normal webpage server.
+
+The example's `trail_guide` tool opens the interface; `trail_action` handles its local actions. Read `examples/mcp-agent/server.ts` for tool registration and `view.tsx` for rendering. No bookings or payments occur.
+
+Host support varies. Verify initialization, tool calls, theme changes, resize, and unsupported capabilities in the exact client you intend to support. A successful local reference-host test does not establish support in every external host.
+
+The existing production Darwin `show_ui` path is a separate read-only presentation. Do not assume it executes this example's actions.
